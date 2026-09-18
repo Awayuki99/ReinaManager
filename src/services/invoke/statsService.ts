@@ -30,11 +30,13 @@ class StatsService extends BaseService {
 		gameId: number,
 		args: string[] = [],
 		timeTrackingMode: "playtime" | "elapsed",
+		cloudOffline = false,
 	): Promise<LaunchGameResult> {
 		return this.invoke<LaunchGameResult>("launch_game", {
 			gameId,
 			args,
 			timeTrackingMode,
+			cloudOffline,
 		});
 	}
 

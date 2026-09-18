@@ -347,8 +347,8 @@ const WindowsHandler: React.FC = () => {
 			// prevent default close behavior when necessary
 			event.preventDefault();
 			// 获取最新的状态值，避免闭包陷阱
-			const currentSkipRemind = useStore.getState().skipCloseRemind;
-			const currentDefaultAction = useStore.getState().defaultCloseAction;
+			const currentSkipRemind = true;
+			const currentDefaultAction = "hide";
 
 			if (currentSkipRemind) {
 				if (currentDefaultAction === "hide") {

@@ -1,0 +1,4 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><OutputType>Exe</OutputType><UseWPF>true</UseWPF><AssemblyName>ReinaSaveCloud</AssemblyName></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../SaveCloud.Core/SaveCloud.Core.csproj"/><Compile Include="../SaveCloud.App/*.cs" Link="%(Filename)%(Extension)"/><Content Include="../../data/*" Link="data/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest"/></ItemGroup>
+</Project>

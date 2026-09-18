@@ -1,3 +1,5 @@
+import { ask } from "@tauri-apps/plugin-dialog";
+import i18n from "i18next";
 import { statsService } from "@/services/invoke";
 import type { LaunchGameResult } from "@/services/invoke/statsService";
 import type { StopGameResult, TimeTrackingMode } from "@/types";
@@ -9,7 +11,31 @@ export async function launchGameWithTracking(
 	args?: string[],
 ): Promise<LaunchGameResult> {
 	try {
-		return await statsService.launchGame(gameId, args || [], timeTrackingMode);
+		const result = await statsService.launchGame(
+			gameId,
+			args || [],
+			timeTrackingMode,
+		);
+		if (
+			result.status === "failed" &&
+			/^CLOUD_SAVE:(auth|network):/.test(result.message)
+		) {
+			if (await ask(i18n.t("cloudSaves.offlinePrompt"), { kind: "warning" })) {
+				return await statsService.launchGame(
+					gameId,
+					args || [],
+					timeTrackingMode,
+					true,
+				);
+			}
+		}
+		if (
+			result.status === "failed" &&
+			result.message.startsWith("CLOUD_SAVE:conflict:")
+		) {
+			return { ...result, message: i18n.t("cloudSaves.launchConflict") };
+		}
+		return result;
 	} catch (error) {
 		throw toError(error, "Failed to launch game");
 	}

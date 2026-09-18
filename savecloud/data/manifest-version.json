@@ -1,0 +1,7 @@
+{
+  "commit": "0d83c63c7cef97b853e3c1e66deb913e03be59d1",
+  "repository": "https://github.com/mtkennerly/ludusavi-manifest",
+  "sha256": "d1bcfc356a688424fe54e2e61a81ced3092afd144a50e7b877d9815467fe57e6",
+  "upstreamSha256": "7c202057ebbef781cead3581a9edbb68c5c3889d11ba4ad2562d5d9ac89144ca",
+  "transformation": "Removed all top-level game launch fields; only discovery/save metadata is used."
+}

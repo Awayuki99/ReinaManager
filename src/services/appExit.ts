@@ -4,6 +4,10 @@ import { ask } from "@tauri-apps/plugin-dialog";
 import { StateFlags, saveWindowState } from "@tauri-apps/plugin-window-state";
 import i18n from "i18next";
 import { createAutoBackup } from "@/services/fs/dataMaintenance";
+import {
+	type CloudStatus,
+	cloudSaveService,
+} from "@/services/invoke/cloudSaveService";
 import { useStore } from "@/store/appStore";
 import { useGamePlayStore } from "@/store/gamePlayStore";
 import { toError } from "@/utils/errors";
@@ -105,6 +109,17 @@ async function runAutoBackupOnExitIfNeeded(): Promise<void> {
 }
 
 export const destroyCurrentWindow = async (): Promise<void> => {
+	try {
+		const cloud = await cloudSaveService.request<CloudStatus>("status");
+		if (
+			(cloud.pending > 0 || cloud.activeCount > 0 || cloud.retryCount > 0) &&
+			!(await ask(i18n.t("cloudSaves.exitPrompt"), { kind: "warning" }))
+		)
+			return;
+	} catch {
+		if (!(await ask(i18n.t("cloudSaves.exitUnknown"), { kind: "warning" })))
+			return;
+	}
 	await runAutoBackupOnExitIfNeeded();
 
 	try {

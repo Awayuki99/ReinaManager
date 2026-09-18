@@ -1,4 +1,5 @@
 mod backup;
+mod cloud_saves;
 mod database;
 mod entity;
 mod game;
@@ -99,6 +100,7 @@ pub fn run() {
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
+            cloud_saves::cloud_saves,
             // 工具类 commands
             launch_game,
             stop_game,
@@ -196,6 +198,7 @@ pub fn run() {
             get_categories_with_count,
         ])
         .setup(|app| {
+            cloud_saves::start_retry_loop(app.handle().clone());
             let silent_startup = match app.store(SETTINGS_STORE_PATH) {
                 Ok(store) => store
                     .get(SILENT_STARTUP_STORE_KEY)

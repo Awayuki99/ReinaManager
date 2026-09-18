@@ -1,84 +1,81 @@
 {
-	"$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-	"productName": "ReinaManager",
-	"version": "../package.json",
-	"identifier": "com.reinamanager.dev",
-	"build": {
-		"frontendDist": "../dist",
-		"devUrl": "http://localhost:5173",
-		"beforeDevCommand": "pnpm dev",
-		"beforeBuildCommand": "pnpm build"
-	},
-	"app": {
-		"withGlobalTauri": false,
-		"windows": [
-			{
-				"title": "ReinaManager Ciallo～(∠・ω< )⌒★",
-				"width": 1200,
-				"height": 740,
-				"minWidth": 1024,
-				"minHeight": 662,
-				"resizable": true,
-				"fullscreen": false,
-				"dragDropEnabled": true,
-				"visible": false
-			}
-		],
-		"security": {
-			"csp": null,
-			"assetProtocol": {
-				"enable": true,
-				"scope": [
-					"**"
-				]
-			}
-		}
-	},
-	"bundle": {
-		"active": true,
-		"targets": "all",
-		"resources": {
-			"target/7zip/": "tools/7zip"
-		},
-		"createUpdaterArtifacts": true,
-		"icon": [
-			"icons/32x32.png",
-			"icons/128x128.png",
-			"icons/128x128@2x.png",
-			"icons/icon.icns",
-			"icons/icon.ico"
-		],
-		"copyright": "Copyright © 2025 huoshen80",
-		"publisher": "huoshen80",
-		"windows": {
-			"nsis": {
-				"installerIcon": "icons/icon.ico",
-				"languages": [
-					"English",
-					"SimpChinese",
-					"TradChinese",
-					"Japanese"
-				],
-				"displayLanguageSelector": true
-			}
-		}
-	},
-	"plugins": {
-		"deep-link": {
-			"desktop": {
-				"schemes": [
-					"reinamanager"
-				]
-			}
-		},
-		"updater": {
-		"endpoints": [
-				"https://gh.huoshen80.top/github.com/huoshen80/ReinaManager/releases/latest/download/latest.json",
-				"https://gh.huoshen80.me/github.com/huoshen80/ReinaManager/releases/latest/download/latest.json",
-				"https://github.com/huoshen80/ReinaManager/releases/latest/download/latest.json"
-      ],
-			"dialog": true,
-			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI0MzZDRDk1QzdDMTU3OTgKUldTWVY4SEhsYzAySktqTVVKdVRjWFBJbnRubGx6cWROeHloc3dpZ252MGVtSUI0REVIaEUzYnQK"
-		}
-	}
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "ReinaManager SaveCloud",
+  "version": "../package.json",
+  "identifier": "com.awayuki99.reinamanager.savecloud",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "withGlobalTauri": false,
+    "windows": [
+      {
+        "title": "ReinaManager · SaveCloud",
+        "width": 1200,
+        "height": 740,
+        "minWidth": 1024,
+        "minHeight": 662,
+        "resizable": true,
+        "fullscreen": false,
+        "dragDropEnabled": true,
+        "visible": false
+      }
+    ],
+    "security": {
+      "csp": null,
+      "assetProtocol": {
+        "enable": true,
+        "scope": [
+          "**"
+        ]
+      }
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "resources": {
+      "target/7zip/": "tools/7zip",
+      "tools/savecloud/": "tools/savecloud"
+    },
+    "createUpdaterArtifacts": false,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "copyright": "Copyright © 2025 huoshen80",
+    "publisher": "huoshen80",
+    "windows": {
+      "nsis": {
+        "installerIcon": "icons/icon.ico",
+        "languages": [
+          "English",
+          "SimpChinese",
+          "TradChinese",
+          "Japanese"
+        ],
+        "displayLanguageSelector": true
+      }
+    }
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "reinamanager-savecloud"
+        ]
+      }
+    },
+    "updater": {
+      "endpoints": [],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDI0MzZDRDk1QzdDMTU3OTgKUldTWVY4SEhsYzAySktqTVVKdVRjWFBJbnRubGx6cWROeHloc3dpZ252MGVtSUI0REVIaEUzYnQK"
+    }
+  }
 }

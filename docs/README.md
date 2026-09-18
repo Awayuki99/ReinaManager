@@ -13,6 +13,7 @@
 
 | 任务 | 阅读文档 |
 | --- | --- |
+| Google Drive 存檔同步、建置便攜版 | [`savecloud.md`](savecloud.md) |
 | 了解整体架构、目录或跨层通信 | [`architecture/README.md`](architecture/README.md) |
 | 修改 React 页面、组件、Hook、Query 或 Store | [`architecture/frontend.md`](architecture/frontend.md) |
 | 修改 Tauri command、Rust 模块、数据库或原生能力 | [`architecture/backend.md`](architecture/backend.md) |

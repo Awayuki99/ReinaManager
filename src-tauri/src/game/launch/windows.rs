@@ -151,13 +151,40 @@ pub async fn launch_game<R: Runtime>(
     game_id: u32,
     args: Option<Vec<String>>,
     time_tracking_mode: TimeTrackingMode,
+    cloud_offline: Option<bool>,
 ) -> Result<LaunchResult, String> {
-    Ok(
-        match launch_game_inner(app_handle, db, game_id, args, time_tracking_mode).await {
-            Ok(result) => result,
-            Err(message) => LaunchResult::failed(message),
-        },
-    )
+    let _guard = crate::cloud_saves::GATE.lock().await;
+    let game = load_game(db.inner(), game_id).await?;
+    if game.launch_type == "local" {
+        let local = validate_local_launch(&game)?;
+        if let Err(message) = crate::cloud_saves::before_launch(
+            &app_handle,
+            game_id,
+            &local.executable_path,
+            cloud_offline.unwrap_or(false),
+        )
+        .await
+        {
+            return Ok(LaunchResult::failed(message));
+        }
+    }
+    let result = launch_game_inner(app_handle.clone(), db, game_id, args, time_tracking_mode).await;
+    match result {
+        Ok(result) => {
+            if let LaunchResult::Tracking {
+                process_id: Some(pid),
+                ..
+            } = &result
+            {
+                crate::cloud_saves::track(app_handle, game_id, *pid);
+            }
+            Ok(result)
+        }
+        Err(message) => {
+            crate::cloud_saves::launch_failed(&app_handle, game_id).await;
+            Ok(LaunchResult::failed(message))
+        }
+    }
 }
 
 async fn launch_game_inner<R: Runtime>(

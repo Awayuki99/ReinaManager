@@ -59,7 +59,7 @@ pub fn get_base_data_dir_for_mode(portable: bool) -> Result<PathBuf, String> {
     } else {
         use directories::BaseDirs;
 
-        let identifier = "com.reinamanager.dev";
+        let identifier = "com.awayuki99.reinamanager.savecloud";
 
         let base_dirs = BaseDirs::new().ok_or_else(|| "无法获取系统目录信息".to_string())?;
 

@@ -13,3 +13,16 @@ others
 
 *.local
 .env
+
+# 雲端同步建置產物與私人資料
+savecloud/**/bin/
+savecloud/**/obj/
+savecloud/artifacts/
+src-tauri/tools/savecloud/
+artifacts/
+*.db
+*.db-shm
+*.db-wal
+client_secret*.json
+oauth-client.bin
+tokens.bin

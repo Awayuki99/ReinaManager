@@ -1,3 +1,5 @@
+> **SaveCloud 分支**：Windows 遊戲存檔辨識、Google Drive 同步、離線佇列與版本衝突處理。請先閱讀 [設定與使用指南](docs/savecloud.md)。
+
 <div align="center">
   <div style="width:200px">
     <a href="https://vndb.org/c64303">

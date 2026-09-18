@@ -40,6 +40,7 @@ import {
 import type { GameData, SavedataRecord } from "@/types";
 import { getUserErrorMessage } from "@/utils/errors";
 import { formatFileSize } from "@/utils/fileSize";
+import { CloudSaves } from "./CloudSaves";
 
 /** 格式化时间戳 */
 const formatDate = (timestamp: number): string => {
@@ -303,6 +304,11 @@ function SaveDataContent({ selectedGame, gameId }: SaveDataContentProps) {
 	return (
 		<Box sx={{ p: 3 }}>
 			<Stack spacing={3}>
+				<CloudSaves
+					key={gameId}
+					gameId={gameId}
+					name={selectedGame.name_cn || selectedGame.name || String(gameId)}
+				/>
 				{/* 备份设置 */}
 				<Card>
 					<CardContent>

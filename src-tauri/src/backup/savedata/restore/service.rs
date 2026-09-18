@@ -7,7 +7,7 @@ use sevenz_rust2::{ArchiveReader, Password};
 use std::fs;
 use std::path::Path;
 use std::sync::{Mutex, OnceLock};
-use tauri::{State, command};
+use tauri::{AppHandle, Runtime, State, command};
 
 static RESTORE_LOCK: OnceLock<Mutex<()>> = OnceLock::new();
 
@@ -18,15 +18,18 @@ enum SaveBackupFormat {
 }
 
 #[command]
-pub async fn restore_savedata_backup(
+pub async fn restore_savedata_backup<R: Runtime>(
+    app: AppHandle<R>,
     db: State<'_, DatabaseConnection>,
     backup_id: i32,
     target_path: String,
 ) -> Result<RestoreSavedataResult, String> {
+    let _cloud_guard = crate::cloud_saves::GATE.lock().await;
     let record = GamesRepository::get_savedata_record_by_id(&db, backup_id)
         .await
         .map_err(|error| format!("获取备份记录失败: {error}"))?
         .ok_or_else(|| "备份记录不存在".to_string())?;
+    crate::cloud_saves::guard_legacy_restore(&app, record.game_id).await?;
     let backup_file_path = resolve_savedata_backup_root(&db)
         .await?
         .join(format!("game_{}", record.game_id))
