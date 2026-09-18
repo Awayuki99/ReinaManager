@@ -31,6 +31,7 @@ jobs:
       - run: dotnet run --project savecloud/tests/SaveCloud.Tests -- savecloud
       - run: ./scripts/build-savecloud.ps1
       - run: python scripts/test-savecloud-bridge.py
+      - run: pnpm build
       - run: cargo fmt --check --manifest-path src-tauri/Cargo.toml
       - run: cargo clippy --manifest-path src-tauri/Cargo.toml --all-targets
       - run: cargo test --manifest-path src-tauri/Cargo.toml --lib

@@ -1,5 +1,7 @@
 # ReinaManager SaveCloud
 
+對應原始碼：[Awayuki99/ReinaManager 的 SaveCloud 分支](https://github.com/Awayuki99/ReinaManager/tree/codex/google-drive-saves)。
+
 此分支將 SaveCloud 同步核心整合到 ReinaManager 0.29.2 的遊戲存檔頁與原生啟動流程。目前交付 Windows x64 便攜版。
 
 ## 使用
@@ -59,5 +61,5 @@ cargo test --manifest-path src-tauri/Cargo.toml --lib
 - React：`CloudSaves` 頁面、`useCloudSaves` 查詢、`cloudSaveService` IPC；不直接在元件呼叫 Tauri invoke。
 - Rust：`cloud_saves/bridge.rs` 只啟動隨程式附帶的背景程式，以 stdin/stdout JSON 傳遞資料，不經 shell。原生啟動與還原共用操作鎖。
 - C#：`savecloud/src/SaveCloud.Bridge` 維護 ReinaManager ID → 雲端 UUID 對應、背景程序追蹤與操作鎖；`SaveCloud.Core` 管理 SQLite、快照、衝突、Google Drive 與還原紀錄。遊戲執行中以持久化標記阻擋還原，與 ReinaManager 的遊玩時間統計分開。
-- Ludusavi 資料庫固定版本與 SHA-256 記錄於 `savecloud/data/manifest-version.json`；其授權隨附於 `LUDUSAVI-LICENSE`。
+- Ludusavi 資料庫固定版本與 SHA-256 記錄於 `savecloud/data/manifest-version.json`；已移除與存檔無關的啟動參數；原始與精簡版雜湊皆有記錄。其授權隨附於 `LUDUSAVI-LICENSE`。
 - ReinaManager 原始授權與著作權保留；本分支新增程式亦以 AGPL-3.0 提供。分發衍生版本時一併提供相應原始碼。
